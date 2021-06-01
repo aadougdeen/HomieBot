@@ -1,6 +1,12 @@
 import os
 import discord
 from discord.ext import commands
+import pymongo
+from pymongo import MongoClient
+
+client = MongoClient("MONGOCLIENT")
+db = client["discordbot"]
+collection = db["characters"]
 
 client = commands.Bot(command_prefix = '!')
 
@@ -20,4 +26,7 @@ for filename in os.listdir('./commands'):
     if filename.endswith('.py'):
         client.load_extension(f'commands.{filename[:-3]}')
 
-client.run('MzcxODM2OTMxNjMxMzQ5Nzgy.We1KIA.y7uq6CYY7PYdV7sa64iyrfEwx98')
+
+client.run('TOKEN')
+
+
