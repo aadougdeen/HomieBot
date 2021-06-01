@@ -1,0 +1,2 @@
+# HomieBot
+Python Discord Bot
