@@ -3,39 +3,40 @@ import discord
 from discord.ext import commands
 from main import collection
 
+
 class Waifu(commands.Cog):
     def __init__(self, client):
-        self.client=client
+        self.client = client
 
     @commands.group()
     async def waifu(self, ctx):
         return
 
     @waifu.command()
-    @commands.cooldown(1,1, commands.BucketType.user)
+    @commands.cooldown(1, 1, commands.BucketType.user)
     async def roll(self, ctx):
         # Generate random number
         global rand
         rand = random.randint(1, 8000)
 
-        #Retrieve document from MongoDB
+        # Retrieve document from MongoDB
         global result
         result = collection.find_one({"_id": rand})
 
         # Send new embed message
-        embed = discord.Embed(title= result["name"], description=" ", color=0x00ff00)
-        embed.set_image(url= result["img"])
-        msg= await ctx.send(embed= embed)
+        embed = discord.Embed(title=result["name"], description=" ", color=0x00ff00)
+        embed.set_image(url=result["img"])
+        msg = await ctx.send(embed=embed)
         await msg.add_reaction(":claim:849023397514313738")
 
     @waifu.command()
     async def list(self, ctx):
-        user= ctx.message.author
+        user = ctx.message.author
         results = collection.find({"users": user.id})
-        msg="**Characters claimed by " + str(user)+ "**\n"
+        msg = "**Characters claimed by " + str(user) + "**\n"
 
         for x in results:
-            msg+=x["name"]+ "\n"
+            msg += x["name"] + "\n"
 
         await ctx.send(msg)
 
@@ -50,10 +51,10 @@ class Waifu(commands.Cog):
         if user.bot:
             return
 
-        #If the user tries to claim the character
+        # If the user tries to claim the character
         if (reaction.emoji.id == 849023397514313738):
-            #The user already claimed this character
-            if(collection.find({"_id": result["_id"],"users": user.id}).count()>0):
+            # The user already claimed this character
+            if (collection.find({"_id": result["_id"], "users": user.id}).count() > 0):
                 await reaction.message.channel.send("You have already claimed this character.")
             else:
                 collection.update_one({"_id": result["_id"]}, {"$push": {"users": user.id}})

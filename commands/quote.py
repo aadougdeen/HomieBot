@@ -22,9 +22,9 @@ class Quote(commands.Cog):
 
         file.close()
 
-        rand= random.randint(0, len(name))
+        rand = random.randint(0, len(name))
 
-        embedVar= discord.Embed(title="\""+q[rand]+"\"", description="-"+name[rand], color=0x00ff00)
+        embedVar = discord.Embed(title="\"" + q[rand] + "\"", description="-" + name[rand], color=0x00ff00)
 
         await ctx.send(embed=embedVar)
 

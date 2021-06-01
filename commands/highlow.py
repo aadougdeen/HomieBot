@@ -46,12 +46,13 @@ class HighLow(commands.Cog):
             self.rand = newRand
             await editEmbed(user, reaction, newRand, outcome)
 
+
 # Edit message to the new embed
 async def editEmbed(user, reaction, newRand, outcome):
     # Remove the user's reaction to the message
     await reaction.remove(user)
 
-    #Send new embed message
+    # Send new embed message
     embed2 = discord.Embed(title="HighLow", description=" ", color=0x00ff00)
     embed2.add_field(name=newRand, value=outcome + "\nHigher or Lower?", inline=False)
     await reaction.message.edit(embed=embed2)
