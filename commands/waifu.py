@@ -8,11 +8,11 @@ class Waifu(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.group()
+    @commands.group(aliases=["w"])
     async def waifu(self, ctx):
         return
 
-    @waifu.command()
+    @waifu.command(aliases=["r"])
     @commands.cooldown(1, 1, commands.BucketType.user)
     async def roll(self, ctx):
         # Generate random number
@@ -29,7 +29,7 @@ class Waifu(commands.Cog):
         msg = await ctx.send(embed=embed)
         await msg.add_reaction(":claim:849023397514313738")
 
-    @waifu.command()
+    @waifu.command(aliases=["l"])
     async def list(self, ctx):
         user = ctx.message.author
         results = collection.find({"users": user.id})

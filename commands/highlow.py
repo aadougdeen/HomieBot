@@ -10,7 +10,7 @@ class HighLow(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command()
+    @commands.command(aliases=['hl', "hilo"])
     async def highlow(self, ctx):
 
         # Create and send embed containing the Higher or Lower game

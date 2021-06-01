@@ -8,7 +8,7 @@ class Quote(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command()
+    @commands.command(aliases=["q"])
     async def quote(self, ctx):
         file = open('quotes.txt', 'r')
 

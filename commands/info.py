@@ -6,7 +6,7 @@ class Info(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command()
+    @commands.command(aliases=["i"])
     async def info(self, ctx):
         embedVar = discord.Embed(title="Information", description="Discord bot for Aaron's Ancestry Account",
                                  color=0x00ff00)
